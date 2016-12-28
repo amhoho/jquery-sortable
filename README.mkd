@@ -1,12 +1,21 @@
 对插件进行了修改:
+
 1.使用了absolute和translate3d,拖拽起来更加流程动感.
-2.新增了#draggtemp用来存放跟随鼠标的li.解决了多个ul互相拖拽时该li原本的绝对定位问题.
-用法:<body style='position:relative'><div id='draggtemp'>
-这里面的css是相对body的绝对定位.#draggtemp>li{position:absolute}</div></body>
+
+2.新增了#draggtemp用来存放跟随鼠标的li.解决了多个ul互相拖拽时该li定位问题(例如#u1a li拖到#ulb li,定位仍然relative到#ula,所以直接外放到全局body中.方便控制).
+用法:
+```htm
+<body style='position:relative'><div id='draggtemp'></div></body>
+```
+这里面的css是相对body的绝对定位.#draggtemp>li{position:absolute}
 
 3.新增了group列表属性:
 data-max(可选,如果没有预设即不限制数量),解决了多个ul互相拖拽时因不限制数量引起的问题.
-data-run(可选,无法放置时的回调处理方法),解决了无法放置后的后续处理问题
-class='dragging_on',被拖动的ul新增一个class:'dragging_on',方便nextpage内部处理.
-用法:<ul data-max='10' id='t1' data-run='nextpage'></ul>,<ul data-max='20' id='t2'></ul>
-当t1满10个后,t2无法再拖动到t1.t1的nextpage()
+class='dragging_on',被拖动的ul高亮一个class:'dragging_on'
+用法:
+```htm
+<ul data-max='10' id='t1'></ul>,<ul data-max='20' id='t2'></ul>
+```
+
+
+当t1满10个后,t2无法再拖动到t1,反之亦然.高亮的class方便需要时调用.
